@@ -34,3 +34,8 @@ body {
 h3 {
   color: #ff8906;
 }
+
+p {
+  color: #e53170;
+  text-decoration: underline;
+}

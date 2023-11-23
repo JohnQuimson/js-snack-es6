@@ -1,17 +1,9 @@
 'use strict';
 
-/*
-<div class="container">
-      <img src="" alt="">
-      <h3></h3>
-      <span></span>
-    </div>
-*/
-
 const biciCorsa = [
   {
     nome: 'race',
-    peso: 8,
+    peso: 6,
     img: 'img/race.png',
   },
   {
@@ -21,23 +13,37 @@ const biciCorsa = [
   },
   {
     nome: 'aero',
-    peso: 7,
+    peso: 8,
     img: 'img/aero.png',
   },
 ];
 
 const container = document.querySelector('.container');
+let indexBiciLeggera = null;
 
-biciCorsa.forEach((biciCorsa, index) => {
-  const { nome, peso, img } = biciCorsa;
+biciCorsa.forEach((bici, index) => {
+  const { nome, peso, img } = bici;
 
-  const bike = ` <div class="card">
-      <div class="cont-img">
-        <img src="${img}" alt="${index}" />
-      </div>
-      <h3>Nome: ${nome}</h3>
-      <span>peso: ${peso} kg</span>
-    </div>`;
+  if (indexBiciLeggera === null || peso < biciCorsa[indexBiciLeggera].peso) {
+    indexBiciLeggera = index;
+  }
 
-  container.innerHTML += bike;
+  const bike = document.createElement('div');
+  bike.classList.add('card');
+
+  bike.innerHTML = `
+    <div class="cont-img">
+      <img src="${img}" alt="${index}" />
+    </div>
+    <h3>Nome: ${nome}</h3>
+    <span>peso: ${peso} kg</span>
+  `;
+
+  container.appendChild(bike);
+
+  if (index === indexBiciLeggera) {
+    const paragraph = document.createElement('p');
+    paragraph.textContent = 'La più leggera';
+    bike.appendChild(paragraph);
+  }
 });
